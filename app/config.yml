@@ -1,0 +1,21 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+#collector.yaml in the root directory
+#Set an environemnt variable 'OPENTELEMETRY_COLLECTOR_CONFIG_FILE' to '/var/task/collector.yaml'
+
+exporters:
+  otlp:
+    endpoint: jaeger.otel.letsbuild-aws.com:4317
+    tls:
+      insecure: true    
+
+#enables output for traces to xray
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [ otlp]
