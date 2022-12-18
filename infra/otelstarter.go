@@ -4,11 +4,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-
+	"github.com/aws/aws-cdk-go/awscdk/v2/awsiam"
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsdynamodb"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsec2"
-	"github.com/aws/aws-cdk-go/awscdk/v2/awsiam"
 	lambda "github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	sources "github.com/aws/aws-cdk-go/awscdk/v2/awslambdaeventsources"
 	logs "github.com/aws/aws-cdk-go/awscdk/v2/awslogs"
@@ -68,6 +67,21 @@ func NewOtelstarterStack(scope constructs.Construct, id string, props *Otelstart
 		},
 	)
 
+	// Add X-Ray Permissions
+	// This is not needed, if you use only jaeger
+	fn.AddToRolePolicy( awsiam.NewPolicyStatement(
+		&awsiam.PolicyStatementProps{
+			Sid:           aws.String("XRayAllow"),
+			Actions:       &[]*string{
+				aws.String("xray:*"),
+			},
+			Effect:        awsiam.Effect_ALLOW,
+			Resources: &[]*string{
+				aws.String("*"),
+			},
+		},
+	))
+	
 	
 	awscdk.NewCfnOutput(this, aws.String("otel-lambda-out"), &awscdk.CfnOutputProps{
 		Value: fn.FunctionName(),

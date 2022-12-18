@@ -5,12 +5,7 @@ version: '3'
 vars:
   CDK_VER: 2.51.1
 
-includes:
-  infra: 
-    taskfile: ./infra
-    optional: true
-    internal: true
-    dir: infra  
+includes: 
   app: 
     taskfile: ./app 
     optional: true
@@ -35,7 +30,8 @@ tasks:
 
   deploy:
     dir: infra
-    desc: Deploy cdk stack without asking 
+    deps: [app:build]
+    desc: Deploy lambda infrastructure stack without asking 
     cmds:
       - npx cdk@{{.CDK_VER}} deploy --require-approval never
     silent: true
