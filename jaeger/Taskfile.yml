@@ -1,0 +1,30 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  CDK_VER: 2.55.1
+
+
+tasks:
+  init:
+    desc: Go Tools install
+    cmd:
+      -  go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow
+  vet:
+    desc: vet
+    cmds:
+      - go vet ./...
+      - shadow ./...
+
+  deploy-vpc:
+    desc: Step 1) Deploy VPC
+    cmds:
+      - npx cdk@{{.CDK_VER}} deploy --require-approval never basevpc
+    silent: true
+  
+  deploy-jaeger:
+    desc: Step 2) Deploy jaeger services in ecs cluster as fargate
+    cmds:
+      - npx cdk@{{.CDK_VER}} deploy --require-approval never jaeger
+    silent: true

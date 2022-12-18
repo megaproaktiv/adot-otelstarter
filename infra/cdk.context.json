@@ -1,0 +1,76 @@
+{
+  "vpc-provider:account=795048271754:filter.isDefault=true:region=eu-central-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0918e36a818968b79",
+    "vpcCidrBlock": "172.31.0.0/16",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-0f056c669a5a18da3",
+            "cidr": "172.31.16.0/20",
+            "availabilityZone": "eu-central-1a",
+            "routeTableId": "rtb-08dc02f525203c69b"
+          },
+          {
+            "subnetId": "subnet-06393d42a50fc864f",
+            "cidr": "172.31.32.0/20",
+            "availabilityZone": "eu-central-1b",
+            "routeTableId": "rtb-08dc02f525203c69b"
+          },
+          {
+            "subnetId": "subnet-0c3dcee7ab93dc89f",
+            "cidr": "172.31.0.0/20",
+            "availabilityZone": "eu-central-1c",
+            "routeTableId": "rtb-08dc02f525203c69b"
+          }
+        ]
+      }
+    ]
+  },
+  "vpc-provider:account=795048271754:filter.tag:Name=otel-base-vpc:region=eu-central-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0c61e9bde649f5942",
+    "vpcCidrBlock": "10.0.0.0/20",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "Public",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-00f898feb799af29e",
+            "cidr": "10.0.0.0/22",
+            "availabilityZone": "eu-central-1a",
+            "routeTableId": "rtb-03a690729e234bf53"
+          },
+          {
+            "subnetId": "subnet-04f84de5f54f7e17f",
+            "cidr": "10.0.4.0/22",
+            "availabilityZone": "eu-central-1b",
+            "routeTableId": "rtb-0a46e29c9863f6954"
+          }
+        ]
+      },
+      {
+        "name": "Private",
+        "type": "Private",
+        "subnets": [
+          {
+            "subnetId": "subnet-0ab6aa8d7df2eaa0c",
+            "cidr": "10.0.8.0/22",
+            "availabilityZone": "eu-central-1a",
+            "routeTableId": "rtb-0e1c25d536d053f9a"
+          },
+          {
+            "subnetId": "subnet-0edbf80f5821122a2",
+            "cidr": "10.0.12.0/22",
+            "availabilityZone": "eu-central-1b",
+            "routeTableId": "rtb-0345d694e873fb6d2"
+          }
+        ]
+      }
+    ]
+  }
+}

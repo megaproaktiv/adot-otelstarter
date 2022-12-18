@@ -1,0 +1,60 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  CDK_VER: 2.51.1
+
+includes:
+  infra: 
+    taskfile: ./infra
+    optional: true
+    internal: true
+    dir: infra  
+  app: 
+    taskfile: ./app 
+    optional: true
+    internal: true
+    dir: app  
+  jaeger:
+    taskfile: ./jaeger
+    optional: true
+    internal: true
+    dir: jaeger
+
+tasks:
+  
+  # AWS_REGION has to be set
+  bootstrap:
+    desc: CDK bootstrap (for beginners) 
+    vars:
+      ACCOUNT: 
+        sh:  aws sts get-caller-identity --query "Account" --output=text
+    cmds:
+      - npx cdk@{{.CDK_VER}}  bootstrap aws://{{.ACCOUNT}}/$AWS_REGION
+
+  deploy:
+    dir: infra
+    desc: Deploy cdk stack without asking 
+    cmds:
+      - npx cdk@{{.CDK_VER}} deploy --require-approval never
+    silent: true
+
+  diff:
+    dir: infra
+    desc: Diff cdk stack without asking 
+    cmds:
+      - npx cdk@{{.CDK_VER}} diff --require-approval never
+    silent: true
+
+  stat:
+    dir: infra
+    desc: Status cloudformation stack
+    cmds:
+      - cdkstat
+    silent: true
+
+  traffic:
+    desc: Generate traffic
+    cmds:
+      - test/traffic.sh

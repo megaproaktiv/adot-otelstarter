@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  deploy:
+    desc: CDK deploy infra stack
+    cmds:
+      - cdk deploy
+    silent: true
